@@ -1,0 +1,19 @@
+/**
+ * Dashboard UI
+ */
+@import 'variables';
+
+
+
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'dashboard/dashboard';
+@import 'multiselect';
+
+.dropdown-toggle::after {
+    display: none;
+    content: none;
+  }
+
+  .dropdown-menu.show:focus{
+    outline: none !important;
+  }

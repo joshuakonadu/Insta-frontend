@@ -1,0 +1,62 @@
+// Custom overrides go first
+// $grid-breakpoints: (
+//   xs: 0,
+//   sm: 480px,
+//   md: 640px,
+//   lg: 992px,
+//   xl: 1300px
+// );
+
+
+@import 'scss/bundle.scss';
+
+// --- Toasts ---
+$b-toaster-zindex: 1100 !default;
+$b-toaster-offset-top: 5rem !default;
+$b-toaster-offset-bottom: 1rem !default;
+$b-toaster-offset-left: 1rem !default;
+$b-toaster-offset-right: 1rem !default;
+
+$b-toast-bg-level: $alert-bg-level !default;
+$b-toast-border-level: $alert-border-level !default;
+$b-toast-color-level: $alert-color-level !default;
+$b-toast-background-opacity: alpha($toast-background-color) !default;
+
+@import 'bootstrap-vue/src/components/toast/_toaster.scss';
+@import 'bootstrap-vue/src/components/toast/_toast.scss';
+@import 'bootstrap-vue/src/components/toast/_toaster-transition.scss';
+// @import 'bootstrap-vue/src/index.scss';
+.page-main {
+
+    -ms-flex: 1 1 auto;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+
+}
+
+.tooltip{
+    opacity: 1;
+}
+
+.dropdown-menu{
+    min-width: 0px;
+  }
+
+.form-select {
+
+    display: inline-block;
+    width: 100%;
+    height: calc(1.4666667em + .75rem + 2px);
+    padding: .375rem 1.3rem .375rem .2rem;
+    font-size: .9375rem;
+    font-weight: 400;
+    line-height: 1.4666667;
+    color:#303645;
+    vertical-align: middle;
+    background:#fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28123, 126, 136, 0.48%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") no-repeat right .3rem center/16px 12px;
+    border: 1px solid rgba(123,126,136,.24);
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
