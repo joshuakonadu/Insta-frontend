@@ -37,8 +37,7 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['login','register','user'];
   const domainpath = to.path.split('/')[1]
   const authRequired = !publicPages.includes(domainpath);
-  const loggedIn = localStorage.getItem('user') || sessionStorage.getItem('user');
-  console.log(!loggedIn,authRequired)
+  const loggedIn = localStorage.getItem('userInsta') || sessionStorage.getItem('userInsta');
   if (authRequired && !loggedIn) {
     document.title = to.meta.title
     return next({ path: '/login', query: { redirect: to.fullPath }});

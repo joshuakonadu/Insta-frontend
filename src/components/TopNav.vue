@@ -16,9 +16,13 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-form>
-          <button class="btn btn-primary btn-sm" type="submit">Anmelden</button>
-          <button class="btn btn-secondary ml-2 btn-sm" type="submit">Registrieren</button>
+        <b-nav-form v-if="!$store.state.authentication.user">
+          <router-link to="/login" tag="button" class="btn btn-primary btn-sm" type="submit">Anmelden</router-link>
+          <router-link to="/register" tag="button" class="btn btn-secondary ml-2 btn-sm" type="submit">Registrieren</router-link>
+        </b-nav-form>
+        <b-nav-form v-else>
+          <router-link to="/" tag="button" class="btn btn-primary btn-sm" type="submit">Mein Profil</router-link>
+          <button @click="logout" class="btn btn-secondary ml-2 btn-sm" type="button">Ausloggen</button>
         </b-nav-form>
       </b-navbar-nav>
     </b-collapse>
@@ -29,7 +33,12 @@
 
 <script>
 export default {
-
+  name:'TopNav',
+  methods:{
+    logout(){
+      
+    }
+  }
 }
 </script>
 
