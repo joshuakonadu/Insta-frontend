@@ -10,6 +10,7 @@ import {
   NavPlugin, 
   NavbarPlugin,  
   ToastPlugin, 
+  CarouselPlugin, 
 } from 'bootstrap-vue'
 
 // Own Party Plugins
@@ -18,6 +19,8 @@ import FontAwesomeConfig from "./plugins/FontAwesomeConfig";
 // App
 import './styles.scss'
 import App from './App.vue'
+import Vuelidate from 'vuelidate'
+
 
 // Bootstrap Vue
 Vue.use(DropdownPlugin)
@@ -25,9 +28,12 @@ Vue.use(NavPlugin)
 Vue.use(NavbarPlugin)
 Vue.use(ToastPlugin)
 Vue.use(ModalPlugin)
+Vue.use(CarouselPlugin)
 
 
 Vue.use(FontAwesomeConfig);
+
+Vue.use(Vuelidate)
 
 
 // Vue.config.productionTip = false
