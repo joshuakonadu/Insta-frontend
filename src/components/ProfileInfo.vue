@@ -54,30 +54,22 @@
                   </div>
 
                   <div class="ml-3">
-                    <form id="avatarform" action="/uploadavatar" method="post" enctype="multipart/form-data">
-                    <label class="btn btn-sm btn-secondary file-attachment-btn mb-1 mb-sm-0 mr-1" for="avatarBtn">
-                        Bild Hochladen
-                        <input
-                        id="avatarBtn"
-                        @change="uploadImage"
-                        name="files[]"
-                        ref="file"
-                        type="file"
-                        style="display:none;"
-                        >
-                    </label>
-                    </form>
+                    <button @click="showUploadModal" class="btn btn-sm btn-secondary">Bilder Hochladen</button>
             </div>
             </div>
           </div>
       </div>
       <hr>
+      <upload-image></upload-image>
   </div>
 </template>
 
 <script>
 export default {
     name:'ProfileInfo',
+    components:{
+      'UploadImage': () => import('@/components/UploadImage')
+    },
     methods:{
     updateAvatar(event) {
       var file = event.target.files[0];
@@ -102,6 +94,9 @@ export default {
         // that.$store.dispatch("user/uploadImage", {imageB64:reader.result.split(",")[1], format:filetype});
       };
       reader.readAsDataURL(file);
+    },
+    showUploadModal(){
+      this.$bvModal.show('imageUpload')
     }
     }
 

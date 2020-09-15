@@ -35,6 +35,13 @@ Vue.use(FontAwesomeConfig);
 
 Vue.use(Vuelidate)
 
+Vue.filter('truncate', function (text, length, suffix) {
+  if (!text) {
+    return ''
+  }
+  return text.substring(0, length) + suffix;
+});
+
 
 // Vue.config.productionTip = false
 

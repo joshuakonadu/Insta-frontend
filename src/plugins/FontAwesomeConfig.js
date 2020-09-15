@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebookF, faLinkedinIn, faPaypal, faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons'
-import {faPlus} from '@fortawesome/pro-regular-svg-icons'
+import {faPlus,faTrashAlt,faUpload,faCheckCircle} from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
@@ -13,7 +13,10 @@ export default {
             faPaypal,
             faCcVisa,
             faCcMastercard,
-            faPlus
+            faPlus,
+            faTrashAlt,
+            faUpload,
+            faCheckCircle
         ];
 
         icons.forEach(iconDefinition => library.add(iconDefinition));
