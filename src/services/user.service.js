@@ -8,7 +8,8 @@ export const userService = {
     register,
     logout,
     getUserData,
-    changeAvatar
+    changeAvatar,
+    uploadImages
 };
 
 function register(username, password) {
@@ -66,6 +67,20 @@ function register(username, password) {
       }
   })
     return apiClient.post('/change-avatar',{avatar})
+  }
+
+  function uploadImages(data){
+    const apiClient = axios.create({
+        baseURL: baseURL,
+        withCredentials: false,
+        headers:{
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'authorization': 'Bearer ' + store.state.authentication.user
+        }
+    })
+      return apiClient.post('/uploadImages',data)
   }
 
 function logout() {

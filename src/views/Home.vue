@@ -2,6 +2,7 @@
   <div class="home">
     <top-nav></top-nav>
     <profile-info></profile-info>
+    <image-gallery></image-gallery>
   </div>
 </template>
 
@@ -13,7 +14,8 @@ export default {
   name: 'Home',
   components: {
     'profile-info': ()=> import('@/components/ProfileInfo.vue'),
-    'topNav': () => import('@/components/TopNav')
+    'topNav': () => import('@/components/TopNav'),
+    'imageGallery': () => import('@/components/ImageGallery')
   },
   created(){
     if(!this.$store.state.profile) this.$store.registerModule('user', user)

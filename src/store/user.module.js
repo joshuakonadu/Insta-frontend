@@ -28,6 +28,12 @@ export const user = {
                 avatar => commit('updateAvatar', avatar.data.avatar),
             );
         },
+        uploadImages({ commit }, data) {
+            userService.uploadImages(data)
+            .then(
+                avatar => commit('uploadImagesSuccess', data.images),
+            );
+        },
     },
     mutations: {
         getUserSucces(state,data){
@@ -40,6 +46,9 @@ export const user = {
         },
         updateAvatar(state,data){
             this._vm.$set(state,'avatar',data)
+        },
+        uploadImagesSuccess(state,data){
+            this._vm.$set(state,'images',data)
         }
     }
     

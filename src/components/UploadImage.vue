@@ -35,7 +35,7 @@
               </template>
               </form>     
           <div class="upload-footer">
-            <button @click.stop="UploadImages()" class="btn" v-bind:class="[ filequeue.length == 0 ? ' btn-secondary disabled':'btn-primary']" >Bilder Hochladen</button>
+            <button @click.stop="uploadImages()" class="btn" v-bind:class="[ filequeue.length == 0 ? ' btn-secondary disabled':'btn-primary']" >Bilder Hochladen</button>
           </div>
         </div>
       </div>
@@ -123,8 +123,16 @@ export default {
         return 'MB'
       }
     },
-    UploadImages(){
-        console.log(this.filequeue)
+    uploadImages(){
+        this.$store.dispatch('user/uploadImages',{uploadList:this.filequeue})
+        .then(()=>{
+          this.filequeue = [];
+          this.toCandidate
+        })
+        .catch(error =>{
+          this.filequeue = [];
+          this.toCandidate();
+        })
     },
     resetState(){
       this.loading = false;
