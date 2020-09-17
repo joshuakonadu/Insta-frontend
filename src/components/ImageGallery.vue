@@ -3,12 +3,12 @@
       <div class="row">
       <div v-for="(image,index) in images" :key="image._id" class="col-sm-6 col-lg-4">
               <div class="card card-sm">
-                <div class="d-block curS"><img :src="`data:image/${image.image.format};base64,${image.image.imageB64}`" class="card-img-top max-height"></div>
+                <div @click="goToRoute({name:'userImage', params:{ id:image._id}})" class="d-block curS"><img :src="`data:image/${image.image.format};base64,${image.image.imageB64}`" class="card-img-top max-height"></div>
                 <div class="card-body">
                   <div class="d-flex align-items-center">
                     <div class="lh-sm">
                       <div>Sunny Airey</div>
-                      <div class="text-muted">5 days ago</div>
+                      <div class="text-muted">Vor {{image.createdAt | elapsed}}</div>
                     </div>
                     <div class="ml-auto">
                       <!-- <a href="#" class="text-muted">
@@ -35,7 +35,9 @@ export default {
         }
     },
     methods:{
-
+      goToRoute(params){
+        this.$router.push(params)
+      }
     },
     computed:{
         images(){

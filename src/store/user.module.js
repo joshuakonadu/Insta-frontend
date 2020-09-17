@@ -11,7 +11,9 @@ export const user = {
             format: '',
             imageB64: ''
         },
-        images:[]
+        images:[],
+        image:{},
+        comments:[]
     },
     actions: {
         getUserData({dispatch,commit }) {
@@ -34,6 +36,12 @@ export const user = {
                 avatar => commit('uploadImagesSuccess', data.images),
             );
         },
+        getUserImage({commit},id){
+            userService.getUserImage(id)
+            .then(
+                data => commit('getUserImageSuccess', data.data),
+            );
+        }
     },
     mutations: {
         getUserSucces(state,data){
@@ -49,6 +57,10 @@ export const user = {
         },
         uploadImagesSuccess(state,data){
             this._vm.$set(state,'images',data)
+        },
+        getUserImageSuccess(state,data){
+            this._vm.$set(state,'image',data.image);
+            this._vm.$set(state,'avatar',data.avatar);   
         }
     }
     

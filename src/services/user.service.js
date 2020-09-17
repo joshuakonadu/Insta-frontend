@@ -9,7 +9,8 @@ export const userService = {
     logout,
     getUserData,
     changeAvatar,
-    uploadImages
+    uploadImages,
+    getUserImage
 };
 
 function register(username, password) {
@@ -81,6 +82,19 @@ function register(username, password) {
         }
     })
       return apiClient.post('/uploadImages',data)
+  }
+
+  function getUserImage(id){
+    const apiClient = axios.create({
+        baseURL: baseURL,
+        withCredentials: false,
+        headers:{
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache'
+        }
+    })
+      return apiClient.get('/getUserImage/'+id)
   }
 
 function logout() {

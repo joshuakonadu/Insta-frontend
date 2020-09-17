@@ -5,6 +5,7 @@ const Home = () => import('./views/Home.vue')
 const AuthenticationPage = () => import('./views/Authentication.vue')
 const Register = () => import('@/components/Register.vue')
 const Login = () => import('@/components/Login.vue')
+const UserImage = () => import('@/views/UserImage.vue')
 
 Vue.use(Router)
 
@@ -23,12 +24,13 @@ export const router = new Router({
   routes: [
     {path:'/', component:Home, meta: { title: 'Home' } },
     {path:'/about', component:About, meta: { title: 'Über uns' } },
-    { path: '*', redirect: '/' },
+    {path:'/p/:id',name:'userImage', component:UserImage, meta: { title: 'Image' } },
     { path: '', component: AuthenticationPage, meta: { title: 'Authentication' },
       children:[
         { path: '/login', component: Login, meta: { title: 'Login' } },
         { path: '/register', component: Register, meta: { title: 'Registrieren' } },
       ]},
+    { path: '*', redirect: '/' },  
   ]
 });
 
