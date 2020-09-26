@@ -69,7 +69,7 @@ export default {
         }
     },
     created(){
-        if(!this.$store.state.profile) this.$store.registerModule('user', user)
+        if(!this.$store.state.user) this.$store.registerModule('user', user)
         if(!this.$store.state.authentication) this.$store.registerModule('authentication', authentication)
         this.$store.dispatch('user/getUserImage',this.$route.params.id)
     }

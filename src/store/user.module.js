@@ -61,6 +61,9 @@ export const user = {
         getUserImageSuccess(state,data){
             this._vm.$set(state,'image',data.image);
             this._vm.$set(state,'avatar',data.avatar);   
+        },
+        editInfo(state,data){
+            this._vm.$set(state,data.prop,data.value);
         }
     }
     

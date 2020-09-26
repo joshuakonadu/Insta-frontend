@@ -31,31 +31,45 @@
           </div>
           <div class="col-8 align-self-stretch">
               <div class="row h-100">
-                  <div class="col-12">
-                      Name
+                  <div v-if="!lock" class="col-12">
+                      {{typedName || '(Name)'}}
                   </div>
-                  <div class="col-4">
+                  <div v-else class="col-12">
+                      <label for="InputName">Name</label>
+                      <input v-model="typedName" type="text" class="form-control" id="InputName" placeholder="Name eingeben">  
+                  </div>
+                  <div v-if="!lock" class="col-4">
                       Beiträge
                   </div>
-                  <div class="col-4">
+                  <div v-if="!lock" class="col-4">
                       Abos
                   </div>
-                  <div class="col-4">
+                  <div v-if="!lock" class="col-4">
                       ias
                   </div>
-                  <div class="col-12">
-                      Name
+                  <div v-if="!lock" class="col-12">{{description || '(Beschreibung)'}}</div>
+                  <div v-else class="col-12">
+                    <label for="description">Beschreibung</label>
+                    <textarea v-model="description" class="form-control" id="description" rows="3"></textarea>
                   </div>
-                  <div class="col-12">Zusatzinfos</div>
               </div>
-              <div class="row">
+              <div v-if="!lock" class="row">
                   <div class="">
-                    <button class="btn btn-sm btn-primary">Info Bearbeiten</button>
+                    <button @click="lockFalse" class="btn btn-sm btn-primary">Info Bearbeiten</button>
                   </div>
 
                   <div class="ml-3">
                     <button @click="showUploadModal" class="btn btn-sm btn-secondary">Bilder Hochladen</button>
             </div>
+            </div>
+            <div v-else class="row">
+              <div class="">
+                    <button @click="save" class="btn btn-sm btn-success">Speichern</button>
+                  </div>
+
+                  <div class="ml-3">
+                    <button @click="cancel" class="btn btn-sm btn-secondary">Abbrechen</button>
+              </div>
             </div>
           </div>
       </div>
@@ -69,6 +83,11 @@ export default {
     name:'ProfileInfo',
     components:{
       'UploadImage': () => import('@/components/UploadImage')
+    },
+    data(){
+      return{
+        lock:false,
+      }
     },
     methods:{
     updateAvatar(event) {
@@ -95,9 +114,36 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+    lockFalse(){
+      this.lock = true;
+    },
+    save(){
+      this.lock = false;
+    },
+    cancel(){
+      this.lock = false;
+    },
     showUploadModal(){
       this.$bvModal.show('imageUpload')
     }
+    },
+    computed:{
+      description:{
+        get(){
+          return this.$store.state.user.description
+        },
+        set(value){
+          this.$store.commit('user/editInfo',{prop:'description',value})
+        }
+      },
+      typedName:{
+         get(){
+          return this.$store.state.user.typedName
+        },
+        set(value){
+          this.$store.commit('user/editInfo',{prop:'typedName',value})
+        }
+      }
     }
 
 }
