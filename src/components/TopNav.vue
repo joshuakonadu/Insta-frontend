@@ -36,7 +36,8 @@ export default {
   name:'TopNav',
   methods:{
     logout(){
-      
+      localStorage.removeItem('userInsta');
+      this.$router.push("/login");
     }
   }
 }

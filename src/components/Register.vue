@@ -3,34 +3,14 @@
         <div class="row flex-grow-1">
         <div class="col-lg-4 col-xl-4 d-none d-lg-flex align-items-center gradient-bg full-height px-0">
             <div class="w-100 h-100">
-                <b-carousel class="h-100"
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-    <b-carousel-slide img-blank
-    class=""
-      ></b-carousel-slide>
-      <b-carousel-slide
-    class="" img-blank
-      ></b-carousel-slide>
-                </b-carousel>
+                <img class="h-100" src="@/assets/nature.png" alt="Elephant">
+      
             </div>
         </div>
-        <div class="col-md-8 col-lg-8 col-xl-8 flex-center">
+        <div class="col-md-8 col-lg-8 col-xl-8 flex-center mt-3">
             <div class="registercom p-sm-2">
-                        <div class="my-5 text-center">
-                            <img src="@/assets/nature.png" width="260" height="68" alt="verlingo TalentScout"/>
-                        </div>
                         <div class="mb-7">
-                            <h1 class="text-primary font-weight-normal mb-1">Willkommen zu <strong>Insta</strong></h1>
+                            <h1 class="text-primary font-weight-normal mb-1">Willkommen be <strong>Insta</strong></h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, similique!
                             </p>
                         </div>

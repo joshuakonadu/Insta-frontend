@@ -127,7 +127,7 @@ export default {
         this.$store.dispatch('user/uploadImages',{uploadList:this.filequeue})
         .then(()=>{
           this.filequeue = [];
-          this.toCandidate
+          this.toCandidate()
         })
         .catch(error =>{
           this.filequeue = [];

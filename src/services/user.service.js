@@ -6,11 +6,11 @@ var baseURL = 'http://localhost:5000/api'
 export const userService = {
     login,
     register,
-    logout,
     getUserData,
     changeAvatar,
     uploadImages,
-    getUserImage
+    getUserImage,
+    deleteImage
 };
 
 function register(username, password) {
@@ -97,8 +97,17 @@ function register(username, password) {
       return apiClient.get('/getUserImage/'+id)
   }
 
-function logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('user');
-    sessionStorage.removeItem('user');
-}
+  function deleteImage(id){
+    const apiClient = axios.create({
+        baseURL: baseURL,
+        withCredentials: false,
+        headers:{
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'authorization': 'Bearer ' + store.state.authentication.user
+        }
+    })
+      return apiClient.post('/deleteImage',{id})
+  }
+

@@ -33,7 +33,7 @@ export const user = {
         uploadImages({ commit }, data) {
             userService.uploadImages(data)
             .then(
-                avatar => commit('uploadImagesSuccess', data.images),
+                images => commit('uploadImagesSuccess', images.data),
             );
         },
         getUserImage({commit},id){
@@ -41,6 +41,12 @@ export const user = {
             .then(
                 data => commit('getUserImageSuccess', data.data),
             );
+        },
+        deleteImage({commit},data){
+            userService.deleteImage(data.id)
+            .then(()=>{
+                commit('deleteImageSuccess',data.index)
+            })
         }
     },
     mutations: {
@@ -56,7 +62,7 @@ export const user = {
             this._vm.$set(state,'avatar',data)
         },
         uploadImagesSuccess(state,data){
-            this._vm.$set(state,'images',data)
+            this._vm.$set(state,'images',data.images)
         },
         getUserImageSuccess(state,data){
             this._vm.$set(state,'image',data.image);
@@ -64,6 +70,9 @@ export const user = {
         },
         editInfo(state,data){
             this._vm.$set(state,data.prop,data.value);
+        },
+        deleteImageSuccess(state,index){
+            state.images.splice(index,1)
         }
     }
     

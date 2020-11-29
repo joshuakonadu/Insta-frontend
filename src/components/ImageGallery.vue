@@ -3,6 +3,7 @@
       <div class="row">
       <div v-for="(image,index) in images" :key="image._id" class="col-sm-6 col-lg-4">
               <div class="card card-sm">
+                <button @click.stop="deleteImage(image._id,index)" class="abs btn btn-sm btn-secondary"><font-awesome-icon class="fontSize" :icon="['far', 'eraser']" /></button>
                 <div @click="goToRoute({name:'userImage', params:{ id:image._id}})" class="d-block curS"><img :src="`data:image/${image.image.format};base64,${image.image.imageB64}`" class="card-img-top max-height"></div>
                 <div class="card-body">
                   <div class="d-flex align-items-center">
@@ -19,13 +20,16 @@
                         {{image.likes.length}}
                         
                     </div>
-                    <span v-if="!image.private" title="Privat" class="ml-4 curS"><font-awesome-icon :icon="['far', 'eye-slash']" /></span>
-                    <span v-else title="Öffentlich" class="ml-4 curS"><font-awesome-icon :icon="['far', 'eye']" /></span>
+                    <span v-if="!image.private" title="Privat" @click="setImagePrivacy(image._id)" class="ml-4 curS"><font-awesome-icon :icon="['far', 'eye-slash']" /></span>
+                    <span v-else title="Öffentlich" @click="setImagePrivacy(image._id)" class="ml-4 curS"><font-awesome-icon :icon="['far', 'eye']" /></span>
                   </div>
                 </div>
               </div>
             </div>
             </div>
+            <b-modal id="verifyDelete" ref="verifyDelete" centered title="Bild Löschen?" @cancel="resetState" @ok="deleteVerify" ok-title="Löschen" cancel-title="Abbrechen">
+              Wollen Sie das Bild wirklich löschen?
+            </b-modal>
   </div>
 </template>
 
@@ -34,12 +38,31 @@ export default {
     name:'ImageGallery',
     data(){
         return{
-
+          deleteId: '',
+          deleteIndex: '',
         }
     },
     methods:{
       goToRoute(params){
         this.$router.push(params)
+      },
+      deleteImage(id,index){
+        this.deleteId = id
+        this.deleteIndex = index
+        this.$refs.verifyDelete.show()
+      },
+      deleteVerify(){
+        this.$store.dispatch('user/deleteImage',{index:this.deleteIndex,id:this.deleteId})
+        .then(()=>{
+          this.resetState()
+        })
+      },
+      resetState(){
+        this.deleteId = ''
+        this.deleteIndex = ''
+      },
+      setImagePrivacy(id){
+        
       }
     },
     computed:{
@@ -56,5 +79,21 @@ export default {
 }
 .curS:hover{
     cursor: pointer;
+}
+
+.abs{
+  position: absolute;
+  right: 0;
+}
+
+.card .abs{
+  opacity: 0;
+}
+
+.card:hover .abs{
+  opacity: 1;
+}
+.fontSize{
+  font-size: 1rem;
 }
 </style>
