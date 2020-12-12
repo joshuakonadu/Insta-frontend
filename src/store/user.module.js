@@ -1,4 +1,4 @@
-import { userService } from '../services';
+import * as userService from "@/services/user.service";
 
 
 export const user = {
@@ -16,7 +16,7 @@ export const user = {
         comments:[]
     },
     actions: {
-        getUserData({dispatch,commit }) {
+        getUserData({commit }) {
            return userService.getUserData()
                 .then(
                     user => {
@@ -43,7 +43,7 @@ export const user = {
             );
         },
         deleteImage({commit},data){
-            userService.deleteImage(data.id)
+            userService.deleteImage({id:data.id,fileName:data.fileName})
             .then(()=>{
                 commit('deleteImageSuccess',data.index)
             })

@@ -1,10 +1,10 @@
 <template>
   <div class="containerSelf">
-      <div class="row">
+      <div v-if="images.length > 0" class="row">
       <div v-for="(image,index) in images" :key="image._id" class="col-sm-6 col-lg-4">
               <div class="card card-sm">
-                <button @click.stop="deleteImage(image._id,index)" class="abs btn btn-sm btn-secondary"><font-awesome-icon class="fontSize" :icon="['far', 'eraser']" /></button>
-                <div @click="goToRoute({name:'userImage', params:{ id:image._id}})" class="d-block curS"><img :src="`data:image/${image.image.format};base64,${image.image.imageB64}`" class="card-img-top max-height"></div>
+                <button @click.stop="deleteImage(image._id,index,image.imageUri)" class="abs btn btn-sm btn-secondary"><font-awesome-icon class="fontSize" :icon="['far', 'eraser']" /></button>
+                <div @click="goToRoute({name:'userImage', params:{ id:image._id}})" class="d-block curS"><img :src="`${imageBaseUrl}/${userId}/${image.imageUri}`" class="card-img-top max-height"></div>
                 <div class="card-body">
                   <div class="d-flex align-items-center">
                     <div class="lh-sm">
@@ -34,25 +34,29 @@
 </template>
 
 <script>
+import {BackendConfig} from "@/backend.config";
 export default {
     name:'ImageGallery',
     data(){
         return{
           deleteId: '',
           deleteIndex: '',
+          deleteUri:'',
+          imageBaseUrl: BackendConfig.baseURL + BackendConfig.images,
         }
     },
     methods:{
       goToRoute(params){
         this.$router.push(params)
       },
-      deleteImage(id,index){
+      deleteImage(id,index,uri){
         this.deleteId = id
         this.deleteIndex = index
+        this.deleteUri = uri
         this.$refs.verifyDelete.show()
       },
       deleteVerify(){
-        this.$store.dispatch('user/deleteImage',{index:this.deleteIndex,id:this.deleteId})
+        this.$store.dispatch('user/deleteImage',{index:this.deleteIndex,id:this.deleteId,fileName:this.deleteUri})
         .then(()=>{
           this.resetState()
         })
@@ -60,6 +64,7 @@ export default {
       resetState(){
         this.deleteId = ''
         this.deleteIndex = ''
+        this.deleteUri = ''
       },
       setImagePrivacy(id){
         
@@ -68,6 +73,9 @@ export default {
     computed:{
         images(){
             return this.$store.state.user.images
+        },
+        userId(){
+            return this.$store.state.user.userId
         }
     }
 }

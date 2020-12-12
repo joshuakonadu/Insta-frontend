@@ -1,4 +1,4 @@
-import { userService } from '../services';
+import * as userService from "@/services/user.service";
 import {router} from '../router';
 import jwtdecode from 'jwt-decode';
 
@@ -33,84 +33,6 @@ export const authentication = {
                     }
                 );
         },
-        passwordReset({ dispatch, commit }, { username }) {
-            commit('passwordResetRequest', { username });
-
-            userService.passwordResetRequest(username)
-                .then(
-                    user => {
-                        dispatch('alert/success', 'Wir haben Ihnen einen Link per Email geschickt. Bitte klicken Sie auf diesen Link um Ihr Passwort zurückzusetzen.', { root: true });
-                        router.push('/login');
-                    },
-                    error => {
-                        console.log(error);
-                        var errors = error.response.data.errors
-                        errors.forEach(element => {                           
-                        dispatch('alert/error', element.msg, { root: true });
-                        });
-                        commit('loginFailure', error);
-                    }
-                );
-        },
-        passwordResetConfirm({ dispatch, commit }, { password, token }) {
-            // commit('passwordResetRequest', { password });
-
-           return userService.passwordResetConfirm(password, token)
-                .then(
-                    user => {
-                        dispatch('alert/success', 'Ihr Passwort wurde erfolgreich geändert.', { root: true });
-                        router.push('/login');
-                        return ''
-                    },
-                    error => {
-                        console.log(error);
-                        var errors = error.response.data.errors
-                        errors.forEach(element => {                           
-                        dispatch('alert/error', element.msg, { root: true });
-                        });
-                        commit('loginFailure', error);
-                        return error
-                    }
-                );
-        },
-        passwordSetConfirmAdmin({ dispatch, commit }, { password, token }) {
-           return userService.passwordSetConfirmAdmin(password, token)
-                .then(
-                    user => {
-                        dispatch('alert/success', 'Ihr Passwort wurde erfolgreich geändert.', { root: true });
-                        router.push('/login');
-                        return ''
-                    },
-                    error => {
-                        console.log(error);
-                        var errors = error.response.data.errors
-                        errors.forEach(element => {                           
-                        dispatch('alert/error', element.msg, { root: true });
-                        });
-                        commit('loginFailure', error);
-                        return error
-                    }
-                );
-        },
-        passwordSetSubuser({ dispatch, commit }, { password, token }) {
-            // commit('passwordResetRequest', { password });
-
-            userService.passwordSetConfirm(password, token)
-                .then(
-                    user => {
-                        dispatch('alert/success', 'Ihr Passwort wurde erfolgreich angelegt. Sie können sich nun einloggen', { root: true });
-                        router.push('/login');
-                    },
-                    error => {
-                        console.log(error);
-                        var errors = error.response.data.errors
-                        errors.forEach(element => {                           
-                        dispatch('alert/error', element.msg, { root: true });
-                        });
-                        commit('loginFailure', error);
-                    }
-                );
-        },
         register({dispatch, commit}, { username, password }){
             userService.register(username, password)
                 .then(
@@ -126,8 +48,7 @@ export const authentication = {
                     }
                 );
         },
-       logout({ commit, dispatch}) { 
-            userService.logout(),
+       logout({ commit}) { 
             commit('logout')
             
         }
@@ -165,8 +86,9 @@ export const authentication = {
         },
         logout(state) {
             state.status = {};
-            router.push('/login');
+            localStorage.removeItem('userInsta')
             state.user = null;
+            router.push('/login');
         },
         setToken(state, {token}){
             state.status = { loggingIn: true };

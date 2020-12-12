@@ -2,14 +2,14 @@
 <div class="vh">
     <top-nav></top-nav>
   <div class="containerSelf h-100">
-      <div v-if="userImage.image" class="row align-items-center h-100">
+      <div v-if="userImage.imageUri" class="row align-items-center h-100">
           <div class="col-md-8 mr-0 pr-0">
-              <img :src="`data:image/${userImage.image.format};base64,${userImage.image.imageB64}`" class="card-img-top minH">
+              <img :src="`${imageBaseUrl}/${userImage.userId}/${userImage.imageUri}`" class="card-img-top minH">
           </div>
           <div class="ml-0 pl-0 col-md-4">
               <div class="card mb-0 minH2">
                   <div class="card-header headerH">
-                        <span v-if="avatar.imageB64" class="avatar avatar-md" :style="{'background-image': `url(data:image/${avatar.format};base64,${avatar.imageB64}`}"></span>
+                        <span v-if="avatar.imageB64" class="avatar avatar-md" :style="{'background-image': `url(data:image/${avatar.format};base64,${avatar.imageB64})`}"></span>
                         <span v-else class="avatar avatar-md" :style="{'background-image': `url(@/assets/user.jpg)`}"></span>
                    </div>
                 <div class="card-body">
@@ -43,6 +43,7 @@
 <script>
 import { user } from '@/store/user.module';
 import { authentication } from '@/store/authentication.module'
+import {BackendConfig} from "@/backend.config";
 
 export default {
     name:'UserImage',
@@ -51,7 +52,7 @@ export default {
   },
     data(){
         return{
-
+            imageBaseUrl: BackendConfig.baseURL + BackendConfig.images,
         }
     },
     methods:{
