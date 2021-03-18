@@ -1,16 +1,11 @@
 <template>
-  <div class="containerSelf">
-      
-  </div>
+  <div class="containerSelf"></div>
 </template>
 
 <script>
 export default {
-    name: 'ProfilImages'
-
-}
+  name: "ProfilImages"
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
